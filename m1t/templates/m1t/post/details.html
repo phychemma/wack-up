@@ -1,0 +1,46 @@
+{% extends "m1t/base.html" %}
+{% block title %}
+{% load blog_tags %}
+{{post.title}}
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-5 text-success text-center border-bottom p-4">
+  {{ post.title }}
+</h2>
+<p class="text-secondary">
+Published on {{ post.publish }} by {{ post.author }}
+</p>
+{{ post.body|markdown }}
+<a href="{% url 'm1t:share_post' post.id %}" class="text-decoration-none">Share this post</a>
+<div class="p-3 border">
+<h5 class="text-success">Similar Posts</h5>
+{% for post in similar_posts %}
+  <a href="{{post.get_absolute_url}}" class="text-decoration-none h6 ms-3">{{post.title}}</a>
+  {% empty %}
+  <p class="text-secondary"> No related Posts </p>
+{% endfor %}
+</div>
+{% with comments.count as cc %}
+<p>
+  {{ cc }} <b class="text-success">Comment{{cc|pluralize}} </b>
+</p>
+{% endwith %}
+<div class="bg-light">
+
+{% for comment in comments %}
+<div class="border shadow-sm mx-4 my-1 px-3">
+  <p class="fw-bold fs-6">
+  {{ forloop.counter }} by {{ comment.name }}
+  {{comment.created}}
+  </p>
+  <i>
+  {{comment.body | linebreaks}}
+  </i>
+</div>
+{% empty %}
+<h5>No comments</h5>
+{% endfor %}
+</div>
+{% include 'm1t/post/includes/comment_form.html' %}
+{% endblock %}

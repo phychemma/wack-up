@@ -1,0 +1,35 @@
+{% extends "m1t/base.html" %}
+{% load static %}
+{% load blog_tags %}
+{% block title %}My blog {% endblock %}
+{% block content %}
+<div class="border-bottom p-2 justify-content-between d-flex">
+<h1>My Blog</h1>
+<a href="{% url 'm1t:search_post' %}" class="text-success text-decoration-none fw-bolder">Search</a>
+</div>
+{% if tag %}
+ <p >post(s) tag by:<b class="text-success text-capitalize"> {{tag.name}} </b></p>
+{% endif %}
+{% for post in posts %}
+ <div class="p-4 border mx-auto m-4 post">
+    <label for="post{{page_obj.id}}">
+      <h2>
+       <a class="text-decoration-none text-success " href="{{post.get_absolute_url}}" id="post{{page_obj.id}}">
+        {{post.title}}
+       </a>
+      </h2>
+      Tags: 
+      {% for tag in post.tags.all %}
+        <a class="text-decoration-none h6" href="{% url 'm1t:post_list_by_tag' tag.slug %}" >{{tag.name}}</a>  
+        {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+      <p>
+       Published {{post.publish}} by {{post.author}}
+      </p>
+    {{ post.body|markdown|truncatewords_html:30 }}
+    </label>
+ </div>
+{% endfor %}
+{% include "m1t/post/pagination.html" with page=posts %}
+<script src="{% static 'm1t/js/post_removal.js' %}"></script>
+{% endblock %}

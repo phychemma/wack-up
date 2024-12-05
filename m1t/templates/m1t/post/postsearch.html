@@ -1,0 +1,30 @@
+{% extends 'm1t/base.html' %}
+{% load blog_tags %}
+{% block title %} Search Posts {% endblock %}
+{% block content %}
+  {% if not query %}
+    <form>
+      {{form.as_p}}
+      <input type="submit" class="btn btn-outline-success"/>
+    </form>
+  {% else %}
+    <h4 class="p-3">Results for {{query}}</h4>
+    {% with result.count as total_count %}
+    <p>{{total_count}} Post{{total_count|pluralize}} found</p>
+    {% endwith %}
+    {% for post in result %}
+      <div class="border-bottom shadow-sm">
+        <div class="">
+        <a href="{{post.get_absolute_url}}" class="fs-4 text-decoration-none fw-bolder text-success">{{post.title}}</a>
+        <p class="text-muted">{{post.publish}}</p>
+        </div>
+        <div>{{post.body|markdown|truncatewords_html:12}}</div>
+      </div>
+    {% empty %}
+      <p>No result found for<span class="fw-bolder text-success"> {{query}}</span></p>
+    {% endfor %}
+    <a href="{% url 'm1t:search_post' %}" class="text-decoration-none fw-bolder">Back to search</a>
+
+  {% endif %}
+
+{% endblock %}

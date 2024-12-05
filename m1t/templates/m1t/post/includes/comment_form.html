@@ -1,0 +1,6 @@
+<h2>Add new comment</h2>
+<form method="post" action="{% url 'm1t:post_comment' post.id %}">
+  {{ form.as_p }}
+  {% csrf_token %}
+  <input type="submit" class="form-control rounded-pill text-success" value="Comment"/>
+</form>

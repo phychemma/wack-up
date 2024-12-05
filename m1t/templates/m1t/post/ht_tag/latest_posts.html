@@ -1,0 +1,11 @@
+<div class="list-group list-group-flush mt-4">
+  <h4 class="border-bottom">Latest Posts</h4>
+  {% for post in latest_posts %}
+  <p class="shadow-sm my-1">
+    <a href="{{post.get_absolute_url}}" class="list-group-item list-group-item-success list-group-item-action justify-content-between d-flex">
+      {{post.title}}
+      <span class="badge text-success">{{post.publish}}</span>
+    </a>
+  </p>
+   {% endfor %}
+</div>

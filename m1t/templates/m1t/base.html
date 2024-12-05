@@ -1,0 +1,30 @@
+{% load static %}
+{% load blog_tags %}
+<!DOCTYPE html>
+<html> 
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+{% block title %}
+{% endblock %}
+</title>
+<!-- <link href="{% static 'm1t/css/m1t.css' %}" rel="stylesheet"/> --> 
+<link href="{%  static 'm1t/bootst/css/bootstrap.min.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<div id="content" class="">
+{% block content %}
+
+{% endblock %}
+</div>
+<div>
+<p class="fs-3 text-success fw-bolder">My blog</p>
+<p class="fw-bold"> Total posts: {% total_count %}</p>
+<a href="{% url 'm1t:post_feeds' %}" class="text-decoration-none fw-bolder">Subscribe to my post feeds</a>
+{% show_latest_posts 3 %}
+{% most_comment %}
+</div>
+</body>
+</html>

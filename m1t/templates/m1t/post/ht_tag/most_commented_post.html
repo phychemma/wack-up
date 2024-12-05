@@ -1,0 +1,14 @@
+<div class="list-group list-group-flush">
+  <h4 class="border-bottom mt-4">Most Commented Posts</h4>
+  {% for post in most_commented_post %}
+  <p class="shadow-sm">
+  <a href="{{post.get_absolute_url}}" class="list-group-item  list-group-item-action d-flex justify-content-between">
+   <span class="h6 fw-bolder"> {{post.title}}</span>
+    {% with post.comment.count as count %}
+      <span class="badge text-success fw-bolder">{{count}} comment{{count|pluralize}}</span>
+    {% endwith %}
+  </a>
+  </p>
+
+   {% endfor %}
+</div>

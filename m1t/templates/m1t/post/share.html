@@ -1,0 +1,17 @@
+{% extends 'm1t/base.html' %}
+{% block title %}
+Share Post
+{% endblock%}
+{% block content %}
+ <div class="h3 fixed-top text-success">Share {{post.title}} by Email</div>
+{% if sent %}
+ <p class="color-success"> Email sent successfully </p>
+ <div class="text-success "> {{post.title}} is sent successfully to {{form.cleaned_data.to}}</div>
+ {% else %}
+ <form method="post" class="mt-5 py-4">
+   {{ form.as_p }}
+   {% csrf_token %}
+   <input type="submit" class="btn btn-success w-75 center-block" value="Share Post"/>
+ </form>
+ {% endif %}
+ {% endblock %}

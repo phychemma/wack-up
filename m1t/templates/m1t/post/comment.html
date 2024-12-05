@@ -1,0 +1,10 @@
+{% extends 'm1t/base.html' %}
+{% block title %} Commenting Section {% endblock %}
+{% block content %}
+{% if comment %}
+<b>You already have a comment </b>
+<a href="{{post.get_absolute_url}}" class="text-decoration-none">Back to post</a>
+{% else %}
+{% include 'm1t/post/includes/comment_form.html' %}
+{% endif %}
+{% endblock %}
